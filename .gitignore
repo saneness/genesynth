@@ -129,3 +129,7 @@ dmypy.json
 # idea
 .idea/
 *.pyc
+
+# music & images
+*.wav
+*.jpg
