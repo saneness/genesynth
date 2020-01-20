@@ -1,19 +1,26 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from melopy.melopy import Melopy
-from melopy import chords
+from melopy import chords, scales, utility
 
-# maj_C4 = chords.generateChord('maj', 'C4')
-# maj_F4 = chords.generateChord('maj', 'F3')
-# maj_G4 = chords.generateChord('maj', 'G3')
-# print(maj_C4, maj_F4, maj_G4)
+notes = utility.iterate('G3', scales.SCALE_STEPS['major'])
+tempo = 360
 
-m = Melopy('mysong', tempo=360)
-m.add_whole_note("E4")
-m.add_half_note("E4")
-m.add_half_note("G4")
-m.add_half_note("E4")
-m.add_half_note("D4")
-m.add_whole_note("C4")
-m.add_half_note("C4")
-m.add_whole_note("B3")
-m.add_half_note("B3")
+tick_size = 2
+song = '152527252413231222' * 2 # seven nation army
+song = [song[i:i + tick_size] for i in range(0, len(song), tick_size)]
+duration = len(song)
+
+print(notes)
+print(song)
+print(duration)
+
+m = Melopy('mysong', tempo=tempo)
+for i in range(duration):
+        tick = song[i]
+        note = notes[int(tick[1])]
+        fraction = 1.0 / int(tick[0])
+        m.add_fractional_note(note=note, fraction=fraction)
+
 m.render()
